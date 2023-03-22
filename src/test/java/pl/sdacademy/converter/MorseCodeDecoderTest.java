@@ -1,35 +1,18 @@
 package pl.sdacademy.converter;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MorseCodeDecoderTest {
 
     private final MorseCodeDictionary dictionary = new MorseCodeDictionary();
     private final MorseCodeDecoder decoder = new MorseCodeDecoder(dictionary);
 
-    public static Stream<Arguments> paramsProvider() {
-        return Stream.of(
-                //  String input, String expectedCode
-                Arguments.of("SDA", "... -.. .-"),
-                Arguments.of("SOS", "... --- ..."),
-                Arguments.of("JAVA", ".--- .- ...- .-"),
-                Arguments.of("HEY SDA", ".... . -.--   ... -.. .-"),
-                Arguments.of("JAVA ROCKS", ".--- .- ...- .-   .-. --- -.-. -.- ..."),
-                Arguments.of("I LOVE JAVA", "..   .-.. --- ...- .   .--- .- ...- .-"),
-                Arguments.of("SOFTWARE DEVELOPMENT ACADEMY", "... --- ..-. - .-- .- .-. .   -.. . ...- . .-.. --- .--. -- . -. -   .- -.-. .- -.. . -- -.--")
-        );
-    }
-
     @ParameterizedTest
-    @MethodSource("paramsProvider")
+    //@MethodSource("paramsProvider")
+    @ArgumentsSource(ParamsProvider.class)
     void testDecodeHappyPath(String expectedText, String input) {
 
         // when
@@ -39,7 +22,8 @@ class MorseCodeDecoderTest {
         Assertions.assertEquals(expectedText, actualText);
     }
     @ParameterizedTest
-    @MethodSource("paramsProvider")
+    //@MethodSource("paramsProvider")
+    @ArgumentsSource(ParamsProvider.class)
     void testDecodeStreamMethodHappyPath(String expectedText, String input) {
 
         // when
